@@ -4,8 +4,7 @@ class rabbitmq::repo::rhel {
 
   Class['rabbitmq::repo::rhel'] -> Package<| title == 'rabbitmq-server' |>
 
-  exec { 'fetch_rabbitmq_gpg_key':
-    command => "rpm --import ${package_gpg_key}",
+  exec { "rpm --import ${package_gpg_key}":
     path   => ['/bin','/usr/bin','/sbin','/usr/sbin'],
     onlyif => 'test `rpm -qa | grep gpg-pubkey-056e8e56-468e43f2 | wc -l` -eq 0',
   }
